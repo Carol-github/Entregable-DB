@@ -1,0 +1,78 @@
+CREATE TABLE `users` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `first_name` VARCHAR(50) NOT NULL,
+   `last_name` VARCHAR(50) NOT NULL,
+   `e_mail` VARCHAR(50) NOT NULL,
+   PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `notes` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `creation_date` DATE NOT NULL,
+   `modfication_date` DATE NOT NULL,
+   `can_be_deleted` TINYINT NOT NULL,
+   `user_note` INT NOT NULL,
+   `description_note` TEXT NOT NULL,
+   `title` VARCHAR(70) NOT NULL,
+   PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `categories` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `tipo` VARCHAR(150) NOT NULL,
+   PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `notes_categories` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `note` INT NOT NULL,
+   `category` INT NOT NULL,
+   PRIMARY KEY (`id`)
+);
+
+
+ALTER TABLE `notes` ADD CONSTRAINT `FK_ac5558aa-e65d-466a-a5d7-5dd4db7a60df` FOREIGN KEY (`user_note`) REFERENCES `users`(`id`)  ;
+
+ALTER TABLE `notes_categories` ADD CONSTRAINT `FK_023ed3a8-71d1-4f87-ab6c-9a20e6999a92` FOREIGN KEY (`category`) REFERENCES `categories`(`id`)  ;
+
+ALTER TABLE `notes_categories` ADD CONSTRAINT `FK_4f68c5d4-6eaa-475c-b0e6-0680c46a0836` FOREIGN KEY (`note`) REFERENCES `notes`(`id`)  ;
+
+
+insert into users (first_name, last_name, e_mail)
+values ("Carolina", "Pitari" , "cfpitari@gmail.com"),
+("Lautaro", "Melchiori", "lauty@gmail.com"),
+("Maria", " Rufinatti", "maria@gmail.com"),
+("Pedro", "Lopez", "peter@yahoo.com.ar"),
+("Florencia", "Perez", "flor@hotmail.com"),
+("Julieta", "Sanchez", "juli@hotmail.com"),
+("Jorge", "Logioco", "georgie@gmail.com"),
+("Marcos", "Ramirez", "mark@hotmail.com"),
+("Federico", "Eguia", "feguia@gmail.com"),
+("Silvina", "Blastein", "blastein@gmail.com");
+
+insert into categories (tipo)
+values ("musica"),
+("deportes"),
+("peliculas"),
+("comidas"),
+("compras"),
+("tareas de playground"),
+("libros"),
+("medicos"),
+("eventos"),
+("verduleria");
+
+insert into notes (creation_date, modfication_date, can_be_deleted, user_note, description_note, title)
+values (now(),now(), 1, 1, "escucha el nuevo album de madonna","el album es genial"),
+(now(),now(), 0, 1, "partido de basquet mañana a las 18", "salir una hora antes"),
+(now(),now(), 1, 7, "estreno avatar teatro", "buscar vestido tintoria"),
+(now(),now(), 1, 2, "encargar la comida para el cumple de Julieta", "y ver que le regalamos"),
+(now(),now(), 1, 4, "ir al supermercado", "no olvidarse las frutas"),
+(now(),now(), 1, 3, "terminar actividades de DB","SIN FALTA"),
+(now(),now(), 1, 7, "terminar el capitulo 8 de Harry Potter", "asi puedo ver la pelicula"),
+(now(),now(), 1, 6, "gastroenterologo a las 19", "no olvidarse los estudios anteriores"),
+(now(),now(), 1, 5, "jueves despedida Andrea", "me toca preparar la torta"),
+(now(),now(), 1, 8, "comprar frutas de estacion para el desayuno", "sobretodo bananas");
+
+insert into notes_categories (note,category)
+values (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10);
